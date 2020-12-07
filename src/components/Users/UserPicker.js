@@ -1,7 +1,12 @@
-export default function UserPicker () {
+import { users } from "../../static.json"
+
+export default function UserPicker() {
     return (
-      <select>
-        <option>Users</option>
-      </select>
+        <select>
+            <option>Users</option>
+            {users.map(user => (
+                <option key={user.id}>{user.name}</option>
+            ))}
+        </select>
     );
-  }
+}

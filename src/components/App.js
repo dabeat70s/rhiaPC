@@ -14,6 +14,7 @@ import BookablesPage from "./Bookables/BookablesPage";
 import BookingsPage from "./Bookings/BookingsPage";
 import UsersPage from "./Users/UsersPage";
 import UserPicker from "./Users/UserPicker";
+import  Resize from "./Resize/Resize";
 
 
 export default function App () {
@@ -41,6 +42,12 @@ export default function App () {
                   <span>Users</span>
                 </Link>
               </li>
+              <li>
+                <Link to="/resize" className="btn btn-header">
+                  <FaUsers/>
+                  <span>resize</span>
+                </Link>
+              </li>
             </ul>
           </nav>
 
@@ -51,6 +58,7 @@ export default function App () {
           <Route path="/bookings" element={<BookingsPage/>}/>
           <Route path="/bookables" element={<BookablesPage/>}/>
           <Route path="/users" element={<UsersPage/>}/>
+          <Route path="/resize" element={<Resize/>}/>
         </Routes>
       </div>
     </Router>

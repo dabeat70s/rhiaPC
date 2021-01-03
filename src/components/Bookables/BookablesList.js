@@ -1,20 +1,26 @@
-import React, { useReducer, Fragment } from "react"; //minus uyseState
-import { bookables,sessions, days } from "../../static.json";
+import React, { useReducer, Fragment, useEffect } from "react"; //minus uyseState
+import { bookables, sessions, days } from "../../static.json";
 import { FaArrowRight } from "react-icons/fa";
 
 import reducer from "./reducer";
 
+import getData from "../../utils/api";
+import Spinner from "../UI/Spinner";
+
 const initialState = {
-  group:"Rooms",
+  group: "Rooms",
   bookableIndex: 0,
   hasDetails: false,
-  bookables
-}
+  bookables,
+  isLoading: true,
+  error: false,
+};
 
 export default function BookablesList() {
-  const [state, dispatch] = useReducer(reducer,initialState); 
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const {group, bookableIndex, bookables, hasDetails}= state;
+  const { group, bookableIndex, bookables, 
+    hasDetails, isLoading, error } = state;
 
   //const [group, setGroup] = useState("Kit");
   const bookablesInGroup = bookables.filter((b) => b.group === group);
@@ -25,30 +31,49 @@ export default function BookablesList() {
   const bookable = bookablesInGroup[bookableIndex];
   //const [hasDetails, setHasDetails] = useState(false);
 
-  function changeGroup(event) { 
+  useEffect(() =>{
+    dispatch({type: "FETCH_BOOKABLES_REQUEST"});
+    getData("http://localhost:3001/bookables")
+    .then(bookables => dispatch({
+      type:"FETCH_BOOKABLES_SUCCESS",
+      payload: bookables
+    }))
+    .catch(error=> dispatch({
+      type:"FETCH_BOOKABLES_ERROR",
+      payload: error
+    }));
+  }, []);
+
+  function changeGroup(event) {
     dispatch({
-      type:"SET_GROUP",
-      payload: event.target.value
-    })
-    // setGroup(event.target.value); 
-    // setBookableIndex(0); 
-    }
+      type: "SET_GROUP",
+      payload: event.target.value,
+    });
+    // setGroup(event.target.value);
+    // setBookableIndex(0);
+  }
 
   // function nextBookable() {
   //   setBookableIndex((i) => (i + 1) % bookablesInGroup.length);
   // }
-  function changeBookable (selectedIndex) {
+  function changeBookable(selectedIndex) {
     dispatch({
-    type: "SET_BOOKABLE",
-    payload: selectedIndex
+      type: "SET_BOOKABLE",
+      payload: selectedIndex,
     });
-    }
-    function nextBookable () {
-    dispatch({ type: "NEXT_BOOKABLE" }); 
-    }
-    function toggleDetails () {
+  }
+  function nextBookable() {
+    dispatch({ type: "NEXT_BOOKABLE" });
+  }
+  function toggleDetails() {
     dispatch({ type: "TOGGLE_HAS_DETAILS" });
-    }
+  }
+  if (error) {
+    return <p>{error.message}</p>
+  }
+  if (isLoading) {
+    return<p className="loading-text" ><Spinner/> Loading Bookables...</p>
+  }
   return (
     <Fragment>
       <div>

@@ -69,7 +69,7 @@ export default function BookablesList() {
     dispatch({ type: "TOGGLE_HAS_DETAILS" });
   }
   if (error) {
-    return <p>{error.message}</p>
+    return <p className="loading-text">{error.message}</p>
   }
   if (isLoading) {
     return<p className="loading-text" ><Spinner/> Loading Bookables...</p>

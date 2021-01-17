@@ -14,7 +14,7 @@ export default function UsersList() {
     // fetch("http://localhost:3001/users")
     //   .then(resp => resp.json())
     //   .then(data => setUsers(data));
-    getData("http://localhost:3001/users1")
+    getData("http://localhost:3001/users")
       // .then(resp => resp.json())
       .then((data) => {
         setUsers(data);

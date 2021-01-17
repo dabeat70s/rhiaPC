@@ -8,8 +8,8 @@ export default function Resize() {
  
   useEffect(()=> {
     function DisplayText(){
-      var num = window.innerWidth < 300 ? 
-      0 : window.innerWidth < 700 ? 1 : 2;
+      var num = window.innerWidth < 700 ? 
+      0 : window.innerWidth < 1300 ? 1 : 2;
       setSizeText(num);    
     }
     window.addEventListener("resize", DisplayText) ;

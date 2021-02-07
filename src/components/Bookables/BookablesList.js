@@ -1,4 +1,4 @@
-import React, { useReducer, Fragment, useEffect, useRef } from "react"; //minus uyseState
+import React, { Fragment, useEffect, useRef } from "react"; //minus uyseState
 import { bookables, sessions, days } from "../../static.json";
 import { FaArrowRight } from "react-icons/fa";
 import Spinner from "../UI/Spinner";
@@ -15,9 +15,7 @@ const initialState = {
   error: false,
 };
 
-export default function BookablesList() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-
+export default function BookablesList({ state, dispatch }) {
   const {
     group,
     bookableIndex,
@@ -33,7 +31,7 @@ export default function BookablesList() {
   //const [bookableIndex, setBookableIndex] = useState(0);
   const groups = [...new Set(bookables.map((b) => b.group))];
 
-  const bookable = bookablesInGroup[bookableIndex];
+  const bookable = bookablesInGroup[bookableIndex]; // looks lime we not using
   //const [hasDetails, setHasDetails] = useState(false);
 
   //const timerRef = useRef(null);
@@ -54,7 +52,7 @@ export default function BookablesList() {
           payload: error,
         })
       );
-  }, []);
+  }, [dispatch]);
 
   // useEffect(() => {
   //   timerRef.current = setInterval(() => {
@@ -89,9 +87,9 @@ export default function BookablesList() {
   function nextBookable() {
     dispatch({ type: "NEXT_BOOKABLE" });
   }
-  function toggleDetails() {
-    dispatch({ type: "TOGGLE_HAS_DETAILS" });
-  }
+  // function toggleDetails() {
+  //   dispatch({ type: "TOGGLE_HAS_DETAILS" });
+  // }
   if (error) {
     return <p className="loading-text">{error.message}</p>;
   }
@@ -133,7 +131,7 @@ export default function BookablesList() {
           </button>
         </p>
       </div>
-      {bookable && (
+      {/* {bookable && (
         <div className="bookable-details">
           <div className="item">
             <div className="item-header">
@@ -143,14 +141,12 @@ export default function BookablesList() {
                   <input
                     type="checkbox"
                     checked={hasDetails}
-                    //onChange={() => setHasDetails((has) => !has)}
+                  
                     onChange={toggleDetails}
                   />
                   Show Details
                 </label>
-                {/* <button className="btn" onClick={stopPresentation}>
-                  Stop
-                </button> */}
+           
               </span>
             </div>
             <p>{bookable.notes}</p>
@@ -173,7 +169,7 @@ export default function BookablesList() {
             )}
           </div>
         </div>
-      )}
+      )} */}
     </Fragment>
   );
 }

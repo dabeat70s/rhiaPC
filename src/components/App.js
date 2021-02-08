@@ -55,6 +55,7 @@ export default function App () {
         </header>
 
         <Routes>
+          <Route exact path="/" element={<p>hi</p>} />
           <Route path="/bookings" element={<BookingsPage/>}/>
           <Route path="/bookables" element={<BookablesPage/>}/>
           <Route path="/users" element={<UsersPage/>}/>

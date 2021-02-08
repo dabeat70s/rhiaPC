@@ -29,7 +29,8 @@ export default function reducer (state, action) {
   
         return {
           ...state,
-          bookableIndex: (state.bookableIndex + 1) % count
+          bookableIndex: (state.bookableIndex + 1) % count,
+          hasDetails: false
         };
 
         case "FETCH_BOOKABLES_REQUEST":

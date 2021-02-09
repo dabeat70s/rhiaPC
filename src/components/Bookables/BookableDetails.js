@@ -1,8 +1,41 @@
-import React, { useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import {days,sessions} from "../../static.json";
 
 export default function BookableDetails({bookable}) {
-    const [hasDetails, setHasDetails] = useState(false);
+  const [hasDetails, setHasDetails] = useState(false);
+  // My set up to stop showing details unless demanded------>>>>> START
+  const [titleIn, setTitleIn] = useState();
+  //const [vari,setVari] = useState(1);
+
+  useEffect(() => {
+    if (bookable ){    
+       setTitleIn(bookable.title);
+       //setVari(num=>num + 1);
+       //console.log('effect var',vari);
+       //console.log('wejust set titleIn');
+       if (bookable.title !== titleIn) {
+         //console.log('the compare was',titleIn, bookable.title)
+         //console.log('set details false')
+        setHasDetails(false)
+       }      
+    };   
+  },[bookable]);
+  // console.log("titleIn", titleIn);
+  // if (bookable) {
+  //   console.log("bookable.title", bookable.title);
+  // }
+  // console.log('com var',vari);
+   // My set up to stop showing details unless demanded------>>>>> END
+ 
+//  if (hasDetails) {
+//    console.log('we have details');
+//    if (bookable.title !== titleIn) {
+//           setHasDetails(false);
+//          }     
+
+//  }
+ 
+  
 
     function toggleDetails () {
         setHasDetails(has => !has);

@@ -2,18 +2,18 @@ import React, { Fragment, useEffect, useRef } from "react"; //minus uyseState
 import { bookables, sessions, days } from "../../static.json";
 import { FaArrowRight } from "react-icons/fa";
 import Spinner from "../UI/Spinner";
-import reducer from "./reducer";
+//import reducer from "./reducer";
 
 import getData from "../../utils/api";
 
-const initialState = {
-  group: "Rooms",
-  bookableIndex: 0,
-  hasDetails: false,
-  bookables,
-  isLoading: true,
-  error: false,
-};
+// const initialState = {
+//   group: "Rooms",
+//   bookableIndex: 0,
+//   hasDetails: false,
+//   bookables,
+//   isLoading: true,
+//   error: false,
+// };
 
 export default function BookablesList({ state, dispatch }) {
   const {

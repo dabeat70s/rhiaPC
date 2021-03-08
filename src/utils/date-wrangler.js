@@ -15,3 +15,6 @@ export function addDays (date, daysToAdd) {
     };
   }
   
+  export function shortISO (date) {
+    return date.toISOString().split("T")[0];
+  }

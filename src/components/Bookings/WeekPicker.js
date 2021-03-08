@@ -1,19 +1,19 @@
-import {useReducer, useState} from "react";
+import {useReducer, useState,useRef} from "react";
 import reducer from "./weekReducer";
 import {getWeek} from "../../utils/date-wrangler";
 import {FaChevronLeft, FaCalendarDay, FaChevronRight, FaCalendarCheck} from "react-icons/fa";
 
-export default function WeekPicker ({date}) {
-  const [week, dispatch] = useReducer(reducer, date, getWeek);
+export default function WeekPicker ({dispatch}) {
+  //const [week, dispatch] = useReducer(reducer, date, getWeek);
  
-  // const textboxRef = useRef();  //not prefered
+  const textboxRef = useRef();  //we using now
   function goToDate () {
     dispatch({
       type: "SET_DATE",
-      payload: dateText //textboxRef.current.value
+      payload: textboxRef.current.value //dateText //textboxRef.current.value
     })
   }
-  const [dateText, setDateText] = useState("");
+  //const [dateText, setDateText] = useState("");
 
   return (
     <div>
@@ -39,11 +39,11 @@ export default function WeekPicker ({date}) {
           //onKeyPress={ (e)  => e.code === "Enter1" ? goToDate() : console.log(e.code)}
           onKeyDown={ (e)  => e.key === "Enter" ? goToDate() : null}
           type="text"
-         // ref={textboxRef} not prefered
-         value= {dateText}
-         onChange={(e) => setDateText(e.target.value)}
+         ref={textboxRef} // we using now
+         //value= {dateText}
+         //onChange={(e) => setDateText(e.target.value)}
           placeholder="e.g. 2020-09-02"
-          //defaultValue="2021-01-01"
+          defaultValue="2021-01-01"
           />
           <button
           className="go btn"
@@ -62,9 +62,9 @@ export default function WeekPicker ({date}) {
           <FaChevronRight/>
         </button>
       </p>
-      <p>
+      {/* <p>
         {week.start.toDateString()} - {week.end.toDateString()}
-      </p>
+      </p> */}
     </div>
   );
 }

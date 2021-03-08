@@ -40,7 +40,8 @@ export default function BookablesList({ bookable, setBookable }) {
   //const [hasDetails, setHasDetails] = useState(false);
 
   //const timerRef = useRef(null);
-  const nextButtonRef = useRef();
+  
+  //const nextButtonRef = useRef();
 
   useEffect(() => {
     getData("http://localhost:3001/bookables")
@@ -99,10 +100,10 @@ export default function BookablesList({ bookable, setBookable }) {
   // function nextBookable() {
   //   setBookableIndex((i) => (i + 1) % bookablesInGroup.length);
   // }
-  function changeBookable(selectedBookable) {
-    setBookable(selectedBookable);
-    nextButtonRef.current.focus();
-  }
+  // function changeBookable(selectedBookable) {
+  //   setBookable(selectedBookable);
+  //   nextButtonRef.current.focus();
+  // }
   // function changeBookable(selectedIndex) {
   //   dispatch({
   //     type: "SET_BOOKABLE",
@@ -144,7 +145,7 @@ export default function BookablesList({ bookable, setBookable }) {
         <ul className="bookables items-list-nav">
           {bookablesInGroup.map((b, i) => (
             <li key={b.id} className={b.id === bookable.id ? "selected" : null}>
-              <button className="btn" onClick={() => changeBookable(b)}>
+              <button className="btn" onClick={() =>setBookable(b)}> 
                 {b.title}
               </button>
             </li>
@@ -154,7 +155,7 @@ export default function BookablesList({ bookable, setBookable }) {
           <button
             className="btn"
             onClick={nextBookable}
-            ref={nextButtonRef}
+            //ref={nextButtonRef}
             autoFocus
           >
             <FaArrowRight />

@@ -3,10 +3,10 @@ import getData from "../../utils/api";
 import Spinner from "../UI/Spinner";
 //import { users } from "../../static.json";
 
-export default function UsersList() {
+export default function UsersList({user, setUser}) {
   const [users, setUsers] = useState(null);
-  const [userIndex, setUserIndex] = useState(0);
-  const user = users?.[userIndex];
+  //const [userIndex, setUserIndex] = useState(0);
+  //const user = users?.[userIndex];
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
 
@@ -17,6 +17,7 @@ export default function UsersList() {
     getData("http://localhost:3001/users")
       // .then(resp => resp.json())
       .then((data) => {
+        setUser(data[0]); // set initial user to first (or undefined)
         setUsers(data);
         setIsLoading(false);
       })
@@ -31,7 +32,7 @@ export default function UsersList() {
     //   setUsers(data);
     // }
     // getUsers();
-  }, []);
+  }, [setUser]);
 
   if (isLoading) {
     //(users === null) {
@@ -49,6 +50,16 @@ export default function UsersList() {
   return (
     <Fragment>
       <ul className="users items-list-nav">
+        {users.map((u) => (
+          <li key={u.id} className={u.id === user?.id ? "selected" : null}>
+            <button className="btn" onClick={() => setUser(u)}>
+              {u.name}
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      {/* <ul className="users items-list-nav">
         {users.map((user, i) => (
           <li key={user.id} className={i === userIndex ? "selected" : null}>
             <button className="btn" onClick={() => setUserIndex(i)}>
@@ -56,8 +67,8 @@ export default function UsersList() {
             </button>
           </li>
         ))}
-      </ul>
-      {user && (
+      </ul> */}
+      {/* {user && (
         <div className="bookable-details">
           <div className="item">
             <div className="item-header">
@@ -69,7 +80,7 @@ export default function UsersList() {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </Fragment>
   );
 }
